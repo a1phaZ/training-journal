@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Workout</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Workout</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  @for (item of list; track item.id) {
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ item.title }}</ion-card-title>
+        <ion-card-subtitle>{{ item.subtitle }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        @for (prop of item.toTemplate().properties; track prop.title) {
+          <div class="card__property">
+            <span>{{ prop.title }}</span>
+            <span>{{ prop.value }}</span>
+          </div>
+        }
+      </ion-card-content>
+
+      @if(!item.endDate) {
+        <ion-button fill="clear"
+                    [disabled]="activeWorkout && !(activeWorkout.id === item.id)">
+          {{ item.active ? 'Продолжить тренировку' : 'Начать тренировку' }}
+        </ion-button>
+      }
+
+
+    </ion-card>
+  }
+</ion-content>
