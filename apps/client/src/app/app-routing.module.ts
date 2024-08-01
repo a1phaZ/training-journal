@@ -8,14 +8,22 @@ const routes: Routes = [
       import('./home/home.module').then((m) => m.HomePageModule),
   },
   {
+    path: 'create-workout',
+    loadChildren: () =>
+      import('./workout/create-workout/create-workout.module').then(
+        (m) => m.CreateWorkoutPageModule
+      ),
+  },
+  {
     path: 'workout',
+
     loadChildren: () =>
       import('./workout/workout.module').then((m) => m.WorkoutPageModule),
   },
   {
     path: 'workout/run/:id',
     loadChildren: () =>
-      import('./run-workout/run-workout.module').then(
+      import('./workout/run-workout/run-workout.module').then(
         (m) => m.RunWorkoutPageModule
       ),
   },

@@ -2,8 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { map, Observable, tap } from 'rxjs';
-import { FeedWorkoutById } from '../workout/workout.actions';
-import { Workout } from '../workout/workout.model';
+import { FeedWorkoutById } from '../workout.actions';
+import { Workout } from '../workout.model';
 
 @Component({
   selector: 'training-run-workout',

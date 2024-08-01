@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Workout } from './workout.model';
 import { Store } from '@ngxs/store';
-import { map, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { FeedWorkouts } from './workout.actions';
 import { WorkoutState } from './workout.state';
 import { Router } from '@angular/router';
@@ -16,11 +16,10 @@ export class WorkoutPage implements OnInit, OnDestroy {
 
   private _cdr = inject(ChangeDetectorRef);
   private _store = inject(Store);
-  private _destroy$ = new Subject<void>();
-  private _router = inject(Router);
-
   public list$: Observable<Workout[]> = this._store.select(WorkoutState.workoutsList);
   public activeWorkout$: Observable<Workout | undefined> = this._store.select(WorkoutState.activeWorkout);
+  private _destroy$ = new Subject<void>();
+  private _router = inject(Router);
   // public firstWorkout$: Observable<Workout | undefined> = this._store.select(WorkoutState.workoutById).pipe(
   //   map(fn => fn(1))
   // );
@@ -37,5 +36,10 @@ export class WorkoutPage implements OnInit, OnDestroy {
 
   onWorkoutClick(id: number) {
     this._router.navigate(['workout', 'run', id]);
+  }
+
+  createWorkout() {
+    this._router.navigate(['workout', 'create']);
+    this._cdr.detectChanges();
   }
 }

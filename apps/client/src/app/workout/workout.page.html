@@ -11,6 +11,12 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button (click)="createWorkout()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   @for (item of list$ | async; track item.id) {
     <ion-card>
       <ion-card-header>

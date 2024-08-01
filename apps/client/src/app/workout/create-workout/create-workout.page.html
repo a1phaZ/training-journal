@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Добавить тренировку</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Добавить тренировку</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  @if (form) {
+    <form [formGroup]="form">
+      <ion-list>
+        <ion-item>
+            <ion-input formControlName="name" label="Название тренировки" [counter]="true" maxlength="30"></ion-input>
+        </ion-item>
+        @for (attempt of attemptForms; track $index) {
+          <ion-item-group [formGroup]="attempt">
+            <ion-item-divider class="ion-padding-top"><ion-label>{{ 'Упражнение #' + +($index+1) }}</ion-label></ion-item-divider>
+            <ion-item>
+                <ion-input type="text" formControlName="name" label="Название" [counter]="true" maxlength="30"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="number" formControlName="initialWeight" label="Начальный вес"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="number" formControlName="numberOfApproaches" label="Кол-во подходов"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="number" formControlName="numberOfReps" label="Повторений на подход"></ion-input>
+            </ion-item>
+          </ion-item-group>
+        }
+        <ion-button class="ion-padding" type="button" (click)="addAttempt()">Добавить упражнение</ion-button>
+        <ion-button class="ion-padding" type="button" (click)="submit()">Сохранить</ion-button>
+      </ion-list>
+    </form>
+  }
+
+
+</ion-content>
