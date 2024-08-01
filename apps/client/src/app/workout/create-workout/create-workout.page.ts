@@ -1,17 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'training-create-workout',
   templateUrl: './create-workout.page.html',
   styleUrls: ['./create-workout.page.scss'],
 })
-export class CreateWorkoutPage implements OnInit {
+export class CreateWorkoutPage implements OnInit, OnDestroy {
+  // TODO Переделать форму в класс
   public form!: FormGroup;
+  public formIsDraft = false;
+
+  private _destroy$ = new Subject<void>();
   constructor() {}
 
   public ngOnInit(): void {
     this.form = this._initForm();
+    this.form.valueChanges.pipe(takeUntil(this._destroy$)).subscribe(() => (this.formIsDraft = true));
+  }
+
+  public ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   private _initForm(): FormGroup {
@@ -40,5 +51,7 @@ export class CreateWorkoutPage implements OnInit {
 
   submit() {
     console.log(this.form.value);
+    this.form.reset();
+    this.formIsDraft = false;
   }
 }
