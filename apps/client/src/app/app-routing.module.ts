@@ -13,6 +13,13 @@ const routes: Routes = [
       import('./workout/workout.module').then((m) => m.WorkoutPageModule),
   },
   {
+    path: 'workout/run/:id',
+    loadChildren: () =>
+      import('./run-workout/run-workout.module').then(
+        (m) => m.RunWorkoutPageModule
+      ),
+  },
+  {
     path: '',
     redirectTo: 'workout',
     pathMatch: 'full',

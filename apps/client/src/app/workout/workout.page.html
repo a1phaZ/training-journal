@@ -11,7 +11,7 @@
     </ion-toolbar>
   </ion-header>
 
-  @for (item of list; track item.id) {
+  @for (item of list$ | async; track item.id) {
     <ion-card>
       <ion-card-header>
         <ion-card-title>{{ item.title }}</ion-card-title>
@@ -28,13 +28,15 @@
       </ion-card-content>
 
       @if(!item.endDate) {
-        <ion-button fill="clear"
-                    [disabled]="activeWorkout && !(activeWorkout.id === item.id)">
-          {{ item.active ? 'Продолжить тренировку' : 'Начать тренировку' }}
-        </ion-button>
+        @if(activeWorkout$ | async; as active) {
+          <ion-button fill="clear"
+                      [disabled]="active && !(active.id === item.id)"
+                      (click)="onWorkoutClick(item.id)"
+          >
+            {{ item.active ? 'Продолжить тренировку' : 'Начать тренировку' }}
+          </ion-button>
+        }
       }
-
-
     </ion-card>
   }
 </ion-content>
