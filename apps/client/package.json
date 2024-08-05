@@ -4,5 +4,8 @@
     "@capacitor/cli": "^5.0.3",
     "@capacitor/ios": "../../node_modules/@capacitor/ios",
     "@capacitor/android": "../../node_modules/@capacitor/android"
+  },
+  "dependencies": {
+    "@capacitor-community/sqlite": "file:../node_modules/@capacitor-community/sqlite"
   }
 }
